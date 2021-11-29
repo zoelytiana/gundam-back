@@ -4,7 +4,10 @@ const routesProducts = require("./routes/index.js")
 const routesUsers = require("./routes/user.js")
 require("dotenv").config({path:"./config/.env"});
 require("./config/db");
+const cors = require("cors")
 const server = express();
+
+server.use(cors());
 
 server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
