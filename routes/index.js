@@ -6,3 +6,4 @@ module.exports = (server) => {
         ProductController.getAll(req, res);
     })
 }
+
