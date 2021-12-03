@@ -5,5 +5,9 @@ module.exports = (server) => {
     server.get("/products", (req, res) => {
         ProductController.getAll(req, res);
     })
+    //AFFICHER LES DETAILS DES PRODUITS AVEC UN ID
+    server.get("/products/:_id", (req, res) => {
+        ProductController.getId(req, res);
+    })
 }
 
