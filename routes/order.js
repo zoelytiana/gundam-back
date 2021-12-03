@@ -6,5 +6,4 @@ module.exports = (server) => {
   server.get("/order", OrderController.getAllOrder);
   //   server.get("/order/:id", OrderController.getOneOrder);
   //   server.put("/order/:id", OrderController.putOneOrder);
-};
-//
+}; //
