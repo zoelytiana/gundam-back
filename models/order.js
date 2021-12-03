@@ -5,10 +5,8 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
   orderUserId: String,
   orderAmount: Number,
-  orderDate: {
-    date: Number,
-  },
-  orderState: Boolean,
+  orderDate: { type: Date, default: Date.now },
+  orderState: String,
   oderTaxe: Number,
   orderDetail: [
     {
