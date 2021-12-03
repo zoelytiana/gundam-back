@@ -1,7 +1,7 @@
 const userController = require("../controllers/user.js");
 
 module.exports = (server) => {
-    //GESTION USERS
+    //GESTION LES USERS
 
     server.get('/users', userController.getAllUsers);
     server.get('/user/:id', userController.getOneUser);
