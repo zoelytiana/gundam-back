@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-//structure base
+
 const userSchema = mongoose.Schema({
   userEmail: { type: String, required: true, unique: true },
   userPassword: { type: String, required: true },
   userRegistrationDate : { type: Date, default: Date.now },
-  userIp : { type: String, required: true },
+  userIp : { type: String},
   userName: { type: String},
   userFirstName: { type: String},
   userPhone: { type: String},
