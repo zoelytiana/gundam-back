@@ -3,6 +3,8 @@ const express = require("express");
 const routesProducts = require("./routes/index.js");
 const routesUsers = require("./routes/user.js");
 const routesOrders = require("./routes/order.js");
+const routesWishs = require("./routes/wish.js");
+
 require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
 // const cors = require("cors");
@@ -28,6 +30,7 @@ server.use(bodyParser.json());
 routesOrders(server);
 routesProducts(server);
 routesUsers(server);
+routesWishs(server);
 
 server.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
