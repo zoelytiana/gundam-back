@@ -1,17 +1,25 @@
 const Wish = require("../models/wish");
 const { ObjectId } = require('mongodb');
+
+
 module.exports.getWishes = (req, res) => {
     console.log('param', req.params)
-  Wish.findOne({ userId: req.params.userId }).then((wish) => {
+  Wish.findOne({ userId: req.params.userId }).populate('wishDetail').
+    exec(function (err, wish) {
+    if (err) return handleError(err);
+    console.log('The wish detail is %s', wish.wishDetail.productName);
+    // prints "The author is Ian Fleming"
     res.json(wish);
   });
 };
+
 module.exports.getOneWish = (req, res) => {
     console.log('param', req.params)
     Wish.findOne({ _id: req.params.id }).then((wish) => {
     res.status(200).json(wish);
   });
 };
+
 module.exports.deleteWish = (req, res) => {
   Wish.deleteOne({ _id: req.params.id }).then((wish) => {
     res.status(200).json(wish);
@@ -44,7 +52,7 @@ module.exports.putWish = (req, res, next) => {
         });*/
         //console.log('wishData', wishData);
         //Wish.updateOne({userId: req.params.userId}, wishData).then(
-            Wish.updateOne({userId: req.params.userId}, {$set: { wishDetail: wD}}).then(  
+            Wish.updateOne({userId: req.params.userId}, {$addToSet: { wishDetail: wD}}).then(  
           () => {
             res.status(201).json({
                 data : wD,
@@ -97,4 +105,33 @@ module.exports.removeWish = (req, res, next) => {
             );
   })
     
+};
+
+module.exports.existWish = (req, res) => {
+  console.log('param', req.params)
+  console.log('body', req.body)
+  const wId = ObjectId(req.body.wish);
+  console.log('The wish detail is wId', wId);
+  // find all documents named john and at least 18
+Wish.find({ userId: req.params.userId , wishDetail: { $in : wId}}).then(
+  (wish) => {
+    console.log('The wish req is %s', req.body);
+    console.log('The wish detail is %s', wish);
+    // prints "The author is Ian Fleming"
+    if(wish.length===0){
+      res.status(200).json(false);
+    }else{
+      res.status(200).json(true);
+    }
+    
+  }).catch(
+    (error) => {
+      res.status(400).json({
+        error: error
+      });
+    });
+  
+/*  Wish.findOne({ _id: req.params.id }).then((wish) => {
+  res.status(200).json(wish);
+});*/
 };
