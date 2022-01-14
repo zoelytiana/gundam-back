@@ -16,7 +16,7 @@ const ProductSchema = new Schema ( {
     productCreateDate: Date,
     productStock: Number,
     productLocation: String,
-    productDiscount: String,
+    productDiscount: Number,
     productSize: String,
     productMaterial: Array,
     productAgeRequired: Number,

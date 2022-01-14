@@ -2,7 +2,6 @@ const userController = require("../controllers/user.js");
 const auth = require('../middleware/auth');
 
 module.exports = (server) => {
-    //GESTION LES USERS
 
     server.get('/users', userController.getAllUsers);
     server.get('/user/:id', userController.getOneUser);
