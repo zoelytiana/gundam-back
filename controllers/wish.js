@@ -1,18 +1,18 @@
 const Wish = require("../models/wish");
 const { ObjectId } = require('mongodb');
 
-
+//affiche tous les souhaits d'un utilisateur donné
 module.exports.getWishes = (req, res) => {
     console.log('param', req.params)
   Wish.findOne({ userId: req.params.userId }).populate('wishDetail').
     exec(function (err, wish) {
     if (err) return handleError(err);
     console.log('The wish detail is %s', wish.wishDetail.productName);
-    // prints "The author is Ian Fleming"
     res.json(wish);
   });
 };
 
+//affiche un souhait 
 module.exports.getOneWish = (req, res) => {
     console.log('param', req.params)
     Wish.findOne({ _id: req.params.id }).then((wish) => {
@@ -20,11 +20,14 @@ module.exports.getOneWish = (req, res) => {
   });
 };
 
+//supprimer tous les souhaits
 module.exports.deleteWish = (req, res) => {
   Wish.deleteOne({ _id: req.params.id }).then((wish) => {
     res.status(200).json(wish);
   });
 };
+
+//ajouter un souhait
 module.exports.postWish = (req, res, next) => {
     console.log("object")
   const AddWish = new Wish({
@@ -39,6 +42,7 @@ module.exports.postWish = (req, res, next) => {
   });
 };
 
+//mettre à jour un souhait
 module.exports.putWish = (req, res, next) => {
     console.log('object', req.body);
     console.log('userid', req.params.userId );
@@ -69,7 +73,7 @@ module.exports.putWish = (req, res, next) => {
     });
 }
 
-
+//supprimer un souhait dans la liste
 module.exports.removeWish = (req, res, next) => {
   console.log('req', req.body);
   console.log('param userid', req.params.userId );
@@ -81,11 +85,12 @@ module.exports.removeWish = (req, res, next) => {
     wish.wishDetail.map((wish, index)=>{
       
       console.log('wish._id', wish._id.toString() )
+      //si le wish est égale à l'id donné dans la requette on ne l'ajoute pas dans le tableau
           if (wish._id.toString() === req.body._id){
             console.log('supprimé', req.body._id)
             //wD.split(index,1)
           }else{
-            wD.push(wish);
+            wD.push(wish); //sinon on ajoute dans le tableau
           }
     })
     console.log('wD', wD);
@@ -107,17 +112,19 @@ module.exports.removeWish = (req, res, next) => {
     
 };
 
+
+//tester si le souhait existe
 module.exports.existWish = (req, res) => {
   console.log('param', req.params)
   console.log('body', req.body)
   const wId = ObjectId(req.body.wish);
   console.log('The wish detail is wId', wId);
-  // find all documents named john and at least 18
+  // find all documents de l'utilisateur donné et le id wish
 Wish.find({ userId: req.params.userId , wishDetail: { $in : wId}}).then(
   (wish) => {
     console.log('The wish req is %s', req.body);
     console.log('The wish detail is %s', wish);
-    // prints "The author is Ian Fleming"
+    // retourner true si le wish existe, sinon false
     if(wish.length===0){
       res.status(200).json(false);
     }else{

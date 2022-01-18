@@ -12,6 +12,7 @@ const server = express();
 
 // server.use(cors());
 
+//CORS header
 server.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -25,6 +26,7 @@ server.use((req, res, next) => {
   next();
 });
 
+// Prise en charge du JSON.
 server.use(bodyParser.json());
 
 routesOrders(server);

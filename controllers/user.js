@@ -2,12 +2,15 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
+
+//afficher tous les utilisateurs
 module.exports.getAllUsers = (req, res) => {
     User.find().then(users => {
         res.json(users)
     })
 }  
 
+//afficher un utilisateur
 module.exports.getOneUser = (req, res) => {
     User.findOne({ _id: req.params.id}).then(
         user => {
@@ -15,6 +18,7 @@ module.exports.getOneUser = (req, res) => {
 })
 }
 
+//mettre à jour un utilisateur
 exports.putOneUser = (req, res, next) => {
     console.log("requette",req);
 
@@ -66,6 +70,8 @@ exports.putOneUser = (req, res, next) => {
     );
   };
 
+
+  //mettre à jour le mot de passe utilisateur
   module.exports.putPasswordUser = (req, res, next) => {
     console.log('object', req.body);
     bcrypt.hash(req.body.userPassword, 10)
@@ -91,6 +97,7 @@ exports.putOneUser = (req, res, next) => {
       .catch(error => res.status(500).json({ error:"koi?" }));
   };
 
+  //Créer un nouvel utilisateur
 module.exports.signup = (req, res, next) => {
     console.log('object', req.body);
     bcrypt.hash(req.body.userPassword, 10)
@@ -120,6 +127,7 @@ module.exports.signup = (req, res, next) => {
       .catch(error => res.status(500).json({ error:"koi?" }));
   };
 
+  //vérifier une authentification utilisateur
   module.exports.login = (req, res, next) => {
     User.findOne({ userEmail: req.body.userEmail })
       .then(user => {

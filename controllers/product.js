@@ -1,4 +1,6 @@
 const Product = require("../models/product");
+
+//Chercher tous les produits
 module.exports = {
     getAll(req, res) {
         console.log('getAll:')
@@ -8,6 +10,8 @@ module.exports = {
     }
 }
 
+
+//chercher un produit donné
 module.exports.getId = (req, res) => {
     console.log('id:', req.params._id)
     Product.findOne({ _id: req.params._id }).then((product) => {
@@ -15,6 +19,8 @@ module.exports.getId = (req, res) => {
     });
   };
 
+
+//recherche des produits en promotion : supérieur à la valeur qu query
   module.exports.findAllProductDiscount = (req, res) => {
     console.log('productDiscount:',req.query)
     Product.find({ productDiscount: { $gt: req.query.productDiscount }  })
