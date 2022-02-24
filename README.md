@@ -27,6 +27,8 @@ git push -uf origin main
 ## Collaborate with your team
 
 - [ ] [Invite team members and collaborators](https://gitlab.com/-/experiment/new_project_readme_content:38678e6b0089ff3b57dfd1a642510533?https://docs.gitlab.com/ee/user/project/members/)
+
+to run : npm start
 - [ ] [Create a new merge request](https://gitlab.com/-/experiment/new_project_readme_content:38678e6b0089ff3b57dfd1a642510533?https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
 - [ ] [Automatically close issues from merge requests](https://gitlab.com/-/experiment/new_project_readme_content:38678e6b0089ff3b57dfd1a642510533?https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
 - [ ] [Automatically merge when pipeline succeeds](https://gitlab.com/-/experiment/new_project_readme_content:38678e6b0089ff3b57dfd1a642510533?https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
